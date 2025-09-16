@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kumkum</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        gap: 20px;
+        background-color: #101010;
+      }
+      body h1 {
+        color: #fff;
+      }
+      .board {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        height: 300px;
+        gap: 5px;
+        border-radius: 30px;
+        width: 300px;
+        padding: 13px 15px;
+        background-color: hsl(202, 98%, 16%);
+        div {
+          text-align: center;
+          color: #fff;
+          border-bottom-left-radius: 20px;
+          border-top-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          border-top-right-radius: 20px;
+          padding-top: 20px;
+          font-size: 45px;
+          background-color: #000000;
+          box-shadow: 0px 4px 12px 2px #00ffcc;
+        }
+      }
+      #button,
+      #btn {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        background: #111;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 0px 4px 12px 2px #00ffcc;
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="upper-text"></h1>
+    <button id="button">Reset</button>
+    <div id="board" class="board"></div>
+    <button id="btn">Star</button>
+
+    <script>
+      let player = ["X", "O"];
+      let turn = 1;
+      let winner = false;
+      let wins = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+      let btn = document.getElementById("btn");
+      let text = document.getElementById("upper-text");
+      let board = document.getElementById("board");
+      let button = document.getElementById("button");
+
+      button.addEventListener("click", function () {
+        render();
+      });
+      btn.addEventListener("click", function () {
+        render();
+      });
+      function render() {
+        board.innerHTML = "";
+        text.innerHTML = "";
+        for (i = 0; i < 9; i++) {
+          board.innerHTML = board.innerHTML + "<div id='box" + i + "'></div>";
+        }
+        addAuntie();
+      }
+      function boxclicked(id) {
+        let currentBox = document.getElementById(id);
+        chance(id);
+        currentBox.setAttribute("onclick", "");
+      }
+      function chance(id) {
+        let currentBox = document.getElementById(id);
+        let cs = "";
+        if (turn % 2 == 0) {
+          cs = player[0];
+        } else {
+          cs = player[1];
+        }
+        currentBox.innerHTML = cs;
+        checkwinner(cs);
+
+        if (winner) {
+          text.innerHTML = " Congratiulation " + cs + " won";
+          disable();
+          button.addEventListener("click", function () {
+            window.location.reload();
+          });
+        }
+        turn++;
+      }
+      function disable(k) {
+        let boxes = document.querySelectorAll("#board div");
+        boxes.forEach((element) => {
+          element.setAttribute("onclick", "");
+        });
+      }
+      function checkwinner(symbol) {
+        wins.forEach((win) => {
+          let count = 0;
+          let y = win.forEach((x) => {
+            let current = document.getElementById("box" + x).innerHTML;
+            if (current == symbol) {
+              count++;
+              if (count == 3) {
+                winner = true;
+              }
+            }
+          });
+        });
+      }
+      function addAuntie(m) {
+        let boxes = document.querySelectorAll("#board div");
+        boxes.forEach((element) => {
+          element.setAttribute("onclick", "boxclicked('" + element.id + "')");
+        });
+      }
+    </script>
+  </body>
+</html>
+<!-- to access the element we use getElement byid ,name , class , tagnamae -->
+<!--function . keyword data type , operator , array  & it's function  -->
+<!--different b/w  Let and Var-->
+<!-- query selector  will return you single ...
+ 
+-->
+<!--write all the evnt use in JS-->
