@@ -47,11 +47,11 @@
       #button,
       #btn {
         margin-top: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         padding: 12px 25px;
         font-size: 1rem;
         font-weight: bold;
-        color: #fff;
+        color: #ffffff;
         background: #111;
         border: none;
         border-radius: 25px;
@@ -59,11 +59,26 @@
         box-shadow: 0px 4px 12px 2px #00ffcc;
         transition: all 0.3s ease;
       }
+      .heading {
+        padding: 0px 22px;
+        padding-top: 6px;
+        color: #00ffcc;
+      }
+      body hr {
+        box-shadow: 0px 0px 12px 3.5px #00ffcc;
+        width: 220px;
+      }
+      #upper-text {
+        margin-bottom: -20px;
+        color: navajowhite;
+      }
     </style>
   </head>
   <body>
     <h1 id="upper-text"></h1>
     <button id="button">Reset</button>
+    <h1 class="heading">Tic Tac Toe</h1>
+    <hr />
     <div id="board" class="board"></div>
     <button id="btn">Star</button>
 
@@ -110,14 +125,16 @@
         let cs = "";
         if (turn % 2 == 0) {
           cs = player[0];
+          currentBox.style.color = "rgb(255, 16, 16";
         } else {
           cs = player[1];
+          currentBox.style.color = "#00ffcc";
         }
         currentBox.innerHTML = cs;
         checkwinner(cs);
 
         if (winner) {
-          text.innerHTML = " Congratiulation " + cs + " won";
+          text.innerHTML = " Congratulation " + cs + " won 🎗️";
           disable();
           button.addEventListener("click", function () {
             window.location.reload();
